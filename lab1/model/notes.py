@@ -1,5 +1,5 @@
 class Note:
-    def __init__(self, name, data, task):
+    def __init__(self, name, date, task):
         self.name = name
-        self.data = data
+        self.date = date
         self.task = task

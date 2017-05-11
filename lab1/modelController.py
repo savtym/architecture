@@ -1,6 +1,8 @@
 import model.notes
 
 class ModelController:
+
+  # Initialization with data
   def __init__(self):
     self.notes = []
     self.notes.append(model.notes.Note('Task 1', '01.01.2017', 'Description of task 1'))
@@ -11,6 +13,9 @@ class ModelController:
     self.notes.append(model.notes.Note('Task 6', '01.06.2017', 'Description of task 6'))
     self.notes.append(model.notes.Note('Task 7', '01.07.2017', 'Description of task 7'))
     self.notes.append(model.notes.Note('Task 8', '01.08.2017', 'Description of task 8'))
-    self.notes.append(model.notes.Note('Task 9', '01.09.2017', 'Description of task 9'))
-    self.notes.append(model.notes.Note('Task 10', '01.10.2017', 'Description of task 10'))
-		print('create view')
+
+  def searchByDate(self, date):
+    for note in self.notes:
+      if note.date == date:
+        return note
+    return None
