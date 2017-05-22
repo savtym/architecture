@@ -1,12 +1,18 @@
 import modelController
 import viewController
 
+
 class AppController():
 
-  def __init__(self):
-    self.model = modelController.ModelController()
-    self.view = viewController.ViewController(self.model)
-                
+    def __init__(self):
+        self.model = modelController.ModelController()
+        self.view = viewController.ViewController(self.model)
+
 
 app = AppController()
-app.view.searchByDate('01.01.2017')
+print(app.view.searchByDate('1111'))
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
