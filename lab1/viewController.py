@@ -17,8 +17,6 @@ class ViewController():
 				return
 			self.chooseMainOption(option)
 
-
-
 	def chooseMainOption(self, option):
 		if (option == 1):
 			self.notesView()

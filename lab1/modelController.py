@@ -14,7 +14,6 @@ class ModelController:
         self.notes.append(notes.Note('7', '01.07.2017', 'Desc of 7'))
         self.notes.append(notes.Note('8', '01.08.2017', 'Desc of 8'))
 
-    
     def searchByDate(self, date):
         """
         return object if find date in list notes
