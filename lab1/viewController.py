@@ -60,7 +60,7 @@ class ViewController():
 
 	def searchByName(self):
 		name = input("Input name to search\n")
-		note = self.model.searchByDate(name)
+		note = self.model.searchByName(name)
 		if note != None:
 			print("Name: %s\nDate: %s\nDescription: %s\n"%(note.name, note.date, note.task))
 		else:

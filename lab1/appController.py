@@ -10,7 +10,7 @@ class AppController():
 
 
 app = AppController()
-print(app.view.searchByDate('1111'))
+app.view.mainMenu()
 
 
 if __name__ == "__main__":

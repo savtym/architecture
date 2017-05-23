@@ -3,14 +3,6 @@ import notes
 
 class ModelController:
 
-    """
-    return object if find date in list notes
-    other - None
-
-    >>> searchByDate("1111")
-    None
-    """
-    # Initialization with data
     def __init__(self):
         self.notes = []
         self.notes.append(notes.Note('1', '01.01.2017', 'Desc of 1'))
@@ -22,39 +14,78 @@ class ModelController:
         self.notes.append(notes.Note('7', '01.07.2017', 'Desc of 7'))
         self.notes.append(notes.Note('8', '01.08.2017', 'Desc of 8'))
 
-    """
-    return object if find date in list notes
-    other - None
-
-    >>> searchByDate("1111")
-    None
-    """
+    
     def searchByDate(self, date):
+        """
+        return object if find date in list notes
+        other - None
+        >>> mc = ModelController()
+        >>> mc.searchByDate("1111") is None
+        True
+        >>> mc.searchByDate('01.08.2017') is not None
+        True
+        """
         for note in self.notes:
             if note.date == date:
                 return note
         return None
 
-    """
-    return object if find title in list notes
-    other - None
-
-    >>> searchByTitle("1111")
-    None
-    """
     def searchByName(self, name):
+        """
+        return object if find name in list notes
+        other - None
+        >>> mc = ModelController()
+        >>> mc.searchByName("2") is not None
+        True
+        >>> mc.searchByName("qwerty") is None
+        True
+        """
         for note in self.notes:
             if note.name == name:
                 return note
         return None
 
     def setNewEl(self, name, date, task):
-      self.notes.append(notes.Note(name, date, task))
+        """
+        add object to db
+        >>> mc = ModelController()
+        >>> mc.setNewEl('test','01.01.2000', 'test')
+        >>> mc.searchByName('test') is not None
+        True
+        >>> mc.searchByDate('01.01.2000') is not None
+        True
+        """
+        self.notes.append(notes.Note(name, date, task))
 
     def deleteNote(self, name):
-      for i in self.notes:
-        if (i.name == name):
-          self.notes.remove(i)
+        """
+        add object to db
+        >>> mc = ModelController()
+        >>> mc.setNewEl('test','01.01.2000', 'test')
+        >>> mc.searchByName('test') is not None
+        True
+        >>> mc.searchByDate('01.01.2000') is not None
+        True
+        >>> mc.deleteNote('test')
+        >>> mc.searchByName('test') is None
+        True
+        >>> mc.searchByDate('01.01.2000') is None
+        True
+        """
+        for i in self.notes:
+            if (i.name == name):
+                self.notes.remove(i)
 
     def getList(self):
+        """
+        add object to db
+        >>> mc = ModelController()
+        >>> mc.getList() is not None
+        True
+        """
         return self.notes
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
