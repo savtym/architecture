@@ -25,9 +25,11 @@ class ModelController:
     """
     return object if find date in list notes
     other - None
-
-    >>> searchByDate("1111")
+    >>> mc = ModelController()
+    >>> mc.searchByDate("1111")
     None
+    >>> len(mc.searchByDate('01.08.2017')) == 1
+    True
     """
     def searchByDate(self, date):
         for note in self.notes:
