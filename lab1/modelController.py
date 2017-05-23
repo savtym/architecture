@@ -22,6 +22,7 @@ class ModelController:
         self.notes.append(model.notes.Note('7', '01.07.2017', 'Desc of 7'))
         self.notes.append(model.notes.Note('8', '01.08.2017', 'Desc of 8'))
 
+    def searchByDate(self, date):
     """
     return object if find date in list notes
     other - None
@@ -31,7 +32,6 @@ class ModelController:
     >>> len(mc.searchByDate('01.08.2017')) == 1
     True
     """
-    def searchByDate(self, date):
         for note in self.notes:
             if note.date == date:
                 return note
