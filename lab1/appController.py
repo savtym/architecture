@@ -11,8 +11,3 @@ class AppController():
 
 app = AppController()
 app.view.mainMenu()
-
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
