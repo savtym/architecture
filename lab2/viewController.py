@@ -13,6 +13,7 @@ class ViewController:
             print('5. Search by date')
             print('6. Exit')
             print('Input a number to choose an apropriate option')
+            self.notesView()
             option = input()
             try:
                 option = int(option)

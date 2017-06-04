@@ -10,7 +10,10 @@ class AppController():
 
 
 app = AppController()
-app.view.mainMenu()
+# app.view.mainMenu()
+# app.model.saveData()
+app.model.loadData()
+app.view.notesView()
 
 if __name__ == "__main__":
     import doctest
