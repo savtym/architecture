@@ -1,0 +1,9 @@
+- !!python/object:notes.Note {date: 01.01.2017, name: '1', task: Desc of 1}
+- !!python/object:notes.Note {date: 01.02.2017, name: '2', task: Desc of 2}
+- !!python/object:notes.Note {date: 01.03.2017, name: '3', task: Desc of 3}
+- !!python/object:notes.Note {date: 01.04.2017, name: '4', task: Desc of 4}
+- !!python/object:notes.Note {date: 01.05.2017, name: '5', task: Desc of 5}
+- !!python/object:notes.Note {date: 01.06.2017, name: '6', task: Desc of 6}
+- !!python/object:notes.Note {date: 01.07.2017, name: '7', task: Desc of 7}
+- !!python/object:notes.Note {date: 01.08.2017, name: '8', task: Desc of 8}
+- !!python/object:notes.Note {date: date, name: name, task: task}
