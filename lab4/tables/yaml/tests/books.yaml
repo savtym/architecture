@@ -1,0 +1,2 @@
+- !!python/object:models.Book {book: b1, id: 1}
+- !!python/object:models.Book {book: b2, id: 1}

@@ -1,0 +1,12 @@
+- !!python/object:models.Library
+  author: !!python/object:models.Author {id: 1, name: author1}
+  book: !!python/object:models.Book {book: book1, id: 1}
+  id: 1
+- !!python/object:models.Library
+  author: !!python/object:models.Author {id: 2, name: author2}
+  book: !!python/object:models.Book {book: book1, id: 1}
+  id: 2
+- !!python/object:models.Library
+  author: !!python/object:models.Author {id: 2, name: author2}
+  book: !!python/object:models.Book {book: book2, id: 2}
+  id: 3

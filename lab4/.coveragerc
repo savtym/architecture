@@ -1,0 +1,7 @@
+[run]
+omit =
+    /usr/*
+    /home/sergey/Python/projects/Arch1/view.py
+    /home/sergey/Python/projects/Arch1/test.py
+    /home/sergey/Python/projects/Arch1/controllers.py
+    /home/sergey/Python/projects/Arch1/main.py

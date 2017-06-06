@@ -1,0 +1,2 @@
+- !!python/object:models.Author {id: 1, name: author1}
+- !!python/object:models.Author {id: 3, name: Author}
