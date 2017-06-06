@@ -6,6 +6,9 @@ import pickleSerialization as piSer
 
 
 class ModelController:
+    """
+    Class for data management
+    """
 
     def __init__(self, file='notes', conf='conf.ini'):
         self.notes = []
@@ -46,7 +49,6 @@ class ModelController:
         >>> mc.searchByDate('01.08.2017') is not None
         True
         """
-
         for note in self.notes:
             if note.date == date:
                 return note
@@ -62,7 +64,6 @@ class ModelController:
         >>> mc.searchByName("qwerty") is None
         True
         """
-
         for note in self.notes:
             if note.name == name:
                 return note
@@ -95,7 +96,6 @@ class ModelController:
         >>> mc.searchByDate('01.01.2000') is None
         True
         """
-
         for i in self.notes:
             if i.name == name:
                 self.notes.remove(i)
@@ -107,14 +107,12 @@ class ModelController:
         >>> mc.getList() is not None
         True
         """
-
         return self.notes
 
     def saveData(self):
         """
         Serialize data into file using method specified in configuration file.
         """
-
         method = self.getMethodWithConf()
         if method == 'pickle':
             with open(self.fileOfData + '.pickle', 'wb') as f:
@@ -130,7 +128,6 @@ class ModelController:
         """
         Desialize data from file.
         """
-
         method = self.getMethodWithConf()
         if method == 'json':
             with open(self.fileOfData + '.json', mode='r') as f:
@@ -146,7 +143,6 @@ class ModelController:
         """
         Get method for serialization data
         """
-
         config = configparser.ConfigParser()
         config.read(self.fileOfConf)
         if 'Serialization' in config:
