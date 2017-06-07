@@ -1,1 +1,1 @@
-[[{"book": "book1", "id": 1}, "Book"], [{"book": "book2", "id": 2}, "Book"]]
+[[{"id": 1, "book": "book1"}, "Book"], [{"id": 2, "book": "book2"}, "Book"]]

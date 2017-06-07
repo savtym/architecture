@@ -1,6 +1,7 @@
 import psycopg2
 import pymysql
 import sqlite3
+import configparser
 
 from querybuilder import QueryBuilder
 from serializers import Serialize
@@ -146,8 +147,18 @@ class DataBase (object):
 
 class RelateDataBase:
 
-    def __init__(self, dbtype):
-        self.db = MysqlDataBase()
+    def __init__(self):
+        conf = configparser.ConfigParser()
+        conf.read('config.cfg')
+        if 'DataBase' in conf:
+            db = conf['DataBase']['db']
+            if db == 'MysqlDataBase':
+                self.db = MysqlDataBase()
+            elif db == 'SqliteDataBase':
+                self.db = SqliteDataBase()
+            elif db == 'PostgresDataBase':
+                self.db = PostgresDataBase()
+
 
     def add(self, data, storage):
         return self.db.insert(storage, data)
@@ -226,7 +237,7 @@ class SqliteDataBase:
     connector = None
 
     def __init__(self):
-        self.connector = sqlite3.connect('./database/dump/phonebook')
+        self.connector = sqlite3.connect('./database/dump/library.db')
         self.connector.row_factory = SqliteDataBase._dict_factory
 
     def insert(self, table, data):
@@ -277,7 +288,7 @@ class MysqlDataBase:
         self.connector = pymysql.connect(
             host='localhost',
             user='root',
-            passwd='1111',
+            passwd='12345678',
             db='library',
             cursorclass=pymysql.cursors.DictCursor)
 
@@ -326,7 +337,7 @@ class Table:
     @staticmethod
     def initDataBase():
         if Table._db is None:
-            Table._db = RelateDataBase('')
+            Table._db = RelateDataBase()
 
     def save(self, obj, storage):
         """
