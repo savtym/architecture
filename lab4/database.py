@@ -1,10 +1,11 @@
-import psycopg2
-import pymysql
-import sqlite3
 import configparser
 
 from querybuilder import QueryBuilder
 from serializers import Serialize
+
+from mysql import MysqlDataBase
+from sqLite import SqliteDataBase
+from postGres import PostgresDataBase
 
 
 class DataBase (object):
@@ -159,7 +160,6 @@ class RelateDataBase:
             elif db == 'PostgresDataBase':
                 self.db = PostgresDataBase()
 
-
     def add(self, data, storage):
         return self.db.insert(storage, data)
 
@@ -186,146 +186,6 @@ class RelateDataBase:
 
     def loadDataBase(self):
         pass
-
-
-class PostgresDataBase:
-    connector = None
-
-    def __init__(self):
-        self.connector = psycopg2.connect(
-            dbname='phonebook',
-            user='postgres',
-            password='1111',
-            cursor_factory=psycopg2.extras.RealDictCursor)
-
-    def insert(self, table, data):
-        with self.connector.cursor() as cursor:
-            cursor.execute(
-                QueryBuilder('%s').insert(table, list(data.keys())) + ' returning id',
-                (list(data.values())))
-            res = cursor.fetchone()['id']
-        self.connector.commit()
-        return res
-
-    def select(self, table, fields=None, where=None):
-        with self.connector.cursor() as cursor:
-            cursor.execute(QueryBuilder('%s').select(table, fields, where))
-            res = cursor.fetchall()
-        return res if res != [] else None
-
-    def update(self, table, data, where):
-        with self.connector.cursor() as cursor:
-            cursor.execute(
-                QueryBuilder('%s').update(table, list(data.keys()), where),
-                list(data.values()))
-            res = cursor.rowcount
-        self.connector.commit()
-        return res
-
-    def delete(self, table, where):
-        with self.connector.cursor() as cursor:
-            cursor.execute(QueryBuilder('%s').delete(table, where))
-            res = cursor.rowcount
-        self.connector.commit()
-        return res
-
-    def close_connection(self):
-        self.connector.close()
-
-
-class SqliteDataBase:
-    connector = None
-
-    def __init__(self):
-        self.connector = sqlite3.connect('./database/dump/library.db')
-        self.connector.row_factory = SqliteDataBase._dict_factory
-
-    def insert(self, table, data):
-        cursor = self.connector.cursor()
-        cursor.execute(
-            QueryBuilder('?').insert(table, list(data.keys())),
-            (list(data.values())))
-        self.connector.commit()
-        return cursor.lastrowid
-
-    def select(self, table, fields=None, where=None):
-        cursor = self.connector.cursor()
-        cursor.execute(
-            QueryBuilder('?').select(table, fields, where))
-        res = cursor.fetchall()
-        return res if res != [] else None
-
-    def update(self, table, data, where):
-        cursor = self.connector.cursor()
-        cursor.execute(
-            QueryBuilder('?').update(table, list(data.keys()), where),
-            list(data.values()))
-        self.connector.commit()
-        return cursor.rowcount
-
-    def delete(self, table, where):
-        cursor = self.connector.cursor()
-        cursor.execute(
-            QueryBuilder('?').delete(table, where))
-        self.connector.commit()
-        return cursor.rowcount
-
-    @staticmethod
-    def _dict_factory(cursor, row):
-        d = {}
-        for idx, col in enumerate(cursor.description):
-            d[col[0]] = row[idx]
-        return d
-
-    def close_connection(self):
-        self.connector.close()
-
-
-class MysqlDataBase:
-    connector = None
-
-    def __init__(self):
-        self.connector = pymysql.connect(
-            host='localhost',
-            user='root',
-            passwd='12345678',
-            db='library',
-            cursorclass=pymysql.cursors.DictCursor)
-
-    def insert(self, table, data):
-        self.connector.begin()
-        with self.connector.cursor() as cursor:
-            cursor.execute(
-                QueryBuilder('%s').insert(table, list(data.keys())),
-                (list(data.values())))
-        self.connector.commit()
-        return cursor.lastrowid
-
-    def select(self, table, fields=None, where=None):
-        with self.connector.cursor() as cursor:
-            cursor.execute(QueryBuilder('%s').select(table, fields, where))
-            res = cursor.fetchall()
-        return res if res != () else None
-
-    def update(self, table, data, where):
-        self.connector.begin()
-        with self.connector.cursor() as cursor:
-            cursor.execute(
-                QueryBuilder('%s').update(table, list(data.keys()), where),
-                list(data.values()))
-        self.connector.commit()
-        return cursor.rowcount
-
-    def delete(self, table, where):
-        self.connector.begin()
-        with self.connector.cursor() as cursor:
-            cursor.execute(
-                QueryBuilder('%s').delete(table, where))
-        self.connector.commit()
-        return cursor.rowcount
-
-    def close_connection(self):
-        self.connector.close()
 
 
 class Table:
@@ -426,10 +286,9 @@ class Table:
         ...
         TypeError: str is not of type int
         """
-        Table.initDataBase()
-        objClassName = value.__class__.__name__
-        clName = _type.__name__
         if type(value) != _type:
+            clName = _type.__name__
+            objClassName = value.__class__.__name__
             raise TypeError(objClassName + " is not of type " + clName)
 
     def __cmp__(self, otherObject):

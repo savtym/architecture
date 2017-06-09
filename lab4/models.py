@@ -16,9 +16,9 @@ class Book (Table):
         Creates new table Book for book with name `book`
         """
         super().__init__()
-        self.id = super().getLastId("books")
+        self.id = self.getLastId("books")
         self.book = book
-        super().isPossibleType(book, str)
+        self.isPossibleType(book, str)
 
     def save(self):
         """

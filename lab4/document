@@ -1,0 +1,339 @@
+Help on module database:
+
+NAME
+    database
+
+CLASSES
+    builtins.object
+        DataBase
+        MysqlDataBase
+        PostgresDataBase
+        RelateDataBase
+        SqliteDataBase
+        Table
+    
+    class DataBase(builtins.object)
+     |  Main database class
+     |  
+     |  Methods defined here:
+     |  
+     |  add(self, data, storage)
+     |      Adds `data` into `storage` in database
+     |      >>> DataBase.getInstance().clear()
+     |      >>> DataBase.getInstance()._books
+     |      []
+     |      >>> DataBase.getInstance().add(1, 'books')
+     |      2
+     |      >>> DataBase.getInstance()._books
+     |      [1]
+     |  
+     |  clear(self)
+     |      Clears database
+     |      >>> db = DataBase.getInstance()
+     |      >>> db._books = [1]
+     |      >>> db._authors = [2]
+     |      >>> db._lib = [3]
+     |      >>> db.clear()
+     |      >>> db._books
+     |      []
+     |      >>> db._authors
+     |      []
+     |      >>> db._lib
+     |      []
+     |  
+     |  find(self, storage, key, value)
+     |      Returns a list of elements from `storage` for which field
+     |      `key` is equal to value
+     |      >>> db = DataBase().getInstance()
+     |      >>> db.clear()
+     |      >>> db.get('books')
+     |      []
+     |      >>> db.find('books', 'a', 'a')
+     |      []
+     |      >>> db.add(type('a', (), {'id': 1, 'a': 1})(), 'books')
+     |      2
+     |      >>> db.add(type('a', (), {'id': 2, 'a': 2})(), 'books')
+     |      3
+     |      >>> db.add(type('a', (), {'id': 3, 'a': 1})(), 'books')
+     |      4
+     |      >>> [x.id for x in db.find('books', 'a', 1)]
+     |      [1, 3]
+     |  
+     |  get(self, storage)
+     |      Returns `storage` form database
+     |      >>> DataBase.getInstance().clear()
+     |      >>> DataBase.getInstance().get('authors')
+     |      []
+     |      >>> DataBase.getInstance().add(1, 'authors')
+     |      2
+     |      >>> DataBase.getInstance().get('authors')
+     |      [1]
+     |  
+     |  lastId(self, storage)
+     |      Returns last id in the `storage` plus 1
+     |      >>> DataBase().getInstance().clear()
+     |      >>> DataBase.getInstance().lastId('lib')
+     |      1
+     |      >>> DataBase.getInstance().add(1, 'lib')
+     |      2
+     |      >>> DataBase.getInstance().lastId('lib')
+     |      2
+     |  
+     |  loadDataBase(self)
+     |      Loads database from disk
+     |      >>> db = DataBase.getInstance()
+     |      >>> db.clear()
+     |      >>> db._lib
+     |      []
+     |      >>> db._authors
+     |      []
+     |      >>> db._books
+     |      []
+     |      >>> db.loadDataBase()
+     |      >>> db._lib == []
+     |      False
+     |      >>> db._authors == []
+     |      False
+     |      >>> db._books == []
+     |      False
+     |  
+     |  saveDataBase(self)
+     |      Saves database on disk
+     |      >>> db = DataBase.getInstance()
+     |      >>> db.clear()
+     |      >>> db.loadDataBase()
+     |      >>> db.saveDataBase()
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  getInstance()
+     |      Returns database instance which is created only once
+     |      >>> res1 = DataBase.getInstance()
+     |      >>> res1 == DataBase.getInstance()
+     |      True
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class MysqlDataBase(builtins.object)
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |  
+     |  close_connection(self)
+     |  
+     |  delete(self, table, where)
+     |  
+     |  insert(self, table, data)
+     |  
+     |  select(self, table, fields=None, where=None)
+     |  
+     |  update(self, table, data, where)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  connector = None
+    
+    class PostgresDataBase(builtins.object)
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |  
+     |  close_connection(self)
+     |  
+     |  delete(self, table, where)
+     |  
+     |  insert(self, t, d)
+     |  
+     |  select(self, table, fields=None, where=None)
+     |  
+     |  update(self, table, data, where)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  connector = None
+    
+    class RelateDataBase(builtins.object)
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |  
+     |  add(self, data, storage)
+     |  
+     |  clear(self)
+     |  
+     |  find(self, storage, key, value)
+     |  
+     |  get(self, storage)
+     |  
+     |  lastId(self, storage)
+     |  
+     |  loadDataBase(self)
+     |  
+     |  remove(self, key, value, storage)
+     |  
+     |  saveDataBase(self)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+    
+    class SqliteDataBase(builtins.object)
+     |  Methods defined here:
+     |  
+     |  __init__(self)
+     |  
+     |  close_connection(self)
+     |  
+     |  delete(self, table, where)
+     |  
+     |  insert(self, table, data)
+     |  
+     |  select(self, table, fields=None, where=None)
+     |  
+     |  update(self, table, data, where)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data and other attributes defined here:
+     |  
+     |  connector = None
+    
+    class Table(builtins.object)
+     |  Class for representing table in database
+     |  
+     |  Methods defined here:
+     |  
+     |  __cmp__(self, otherObject)
+     |      Compares this Table instance to `otherObject`
+     |      >>> x = Table()
+     |      >>> y = Table()
+     |      >>> x.__cmp__(y)
+     |      True
+     |      >>> x.a = 1
+     |      >>> x.__cmp__(y)
+     |      False
+     |      >>> y.a = 1
+     |      >>> x.__cmp__(y)
+     |      True
+     |  
+     |  initTable(self, d)
+     |  
+     |  isPossibleType(self, value, _type)
+     |      Checks if `value` is of type `_type`
+     |      >>> x = Table()
+     |      >>> x.isPossibleType(1, int)
+     |      >>> x.isPossibleType('asd', int)
+     |      Traceback (most recent call last):
+     |      ...
+     |      TypeError: str is not of type int
+     |  
+     |  remove(self, key, value, storage)
+     |  
+     |  save(self, obj, storage)
+     |      Adds `obj` into `storage` in database of table `self`
+     |      >>> DataBase.getInstance().clear()
+     |      >>> t = Table()
+     |      >>> DataBase.getInstance()._books
+     |      []
+     |      >>> t.save(1, 'books')
+     |      2
+     |      >>> DataBase.getInstance()._books
+     |      [1]
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  find(storage, key, value)
+     |      Returns a list of elements from `storage` for which field
+     |      `key` is equal to value
+     |      >>> db = DataBase().getInstance()
+     |      >>> db.clear()
+     |      >>> db.get('books')
+     |      []
+     |      >>> db.find('books', 'a', 'a')
+     |      []
+     |      >>> db.add(type('a', (), {'id': 1, 'a': 1})(), 'books')
+     |      2
+     |      >>> db.add(type('a', (), {'id': 2, 'a': 2})(), 'books')
+     |      3
+     |      >>> db.add(type('a', (), {'id': 3, 'a': 1})(), 'books')
+     |      4
+     |      >>> [x.id for x in db.find('books', 'a', 1)]
+     |      [1, 3]
+     |  
+     |  getLastId(storage)
+     |      Returns last id in the `storage` plus 1
+     |      >>> DataBase().getInstance().clear()
+     |      >>> Table.getLastId('lib')
+     |      1
+     |      >>> DataBase.getInstance().add(1, 'lib')
+     |      2
+     |      >>> Table.getLastId('lib')
+     |      2
+     |  
+     |  initDataBase()
+     |  
+     |  listAll(storage)
+     |      Returns `storage` form database
+     |      >>> DataBase.getInstance().clear()
+     |      >>> Table.listAll('authors')
+     |      []
+     |      >>> DataBase.getInstance().add(1, 'authors')
+     |      2
+     |      >>> Table.listAll('authors')
+     |      [1]
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors defined here:
+     |  
+     |  __dict__
+     |      dictionary for instance variables (if defined)
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+
+FILE
+    e:\dropbox\6_sem\architecture\lab4\database.py
+
+
